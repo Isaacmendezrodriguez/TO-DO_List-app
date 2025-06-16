@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = import.meta.env.PROD 
+  ? 'https://todo-list-app-backend.onrender.com/api'
+  : 'http://localhost:3000/api';
 
 const useTodoStore = create((set, get) => ({
   tasks: [],

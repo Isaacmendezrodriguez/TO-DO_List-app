@@ -6,7 +6,12 @@ import sequelize from './config/database.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://todo-list-app-isaacmendez.vercel.app']
+    : ['http://localhost:5173'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Rutas
