@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://todo-list-app-isaacmendez.vercel.app', 'https://to-do-list-app-iota.vercel.app']
+    ? ['https://todo-list-app-isaacmendez.vercel.app', 'https://to-do-list-app-iota.vercel.app', 'https://to-do-list-isaac.netlify.app']
     : ['http://localhost:5173'],
   credentials: true
 }));
