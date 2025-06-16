@@ -33,6 +33,15 @@ app.get('/', (req, res) => {
   res.json({ message: 'Todo List API is running!' });
 });
 
+// Sincronizar la base de datos
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('Base de datos sincronizada correctamente');
+  })
+  .catch((error) => {
+    console.error('Error al sincronizar la base de datos:', error);
+  });
+
 // Rutas
 app.use('/api', taskRoutes);
 
