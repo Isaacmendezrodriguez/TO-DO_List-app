@@ -14,6 +14,11 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.json({ message: 'Todo List API is running!' });
+});
+
 // Rutas
 app.use('/api', taskRoutes);
 
