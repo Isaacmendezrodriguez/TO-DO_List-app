@@ -7,8 +7,13 @@ const __dirname = dirname(__filename);
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: join(__dirname, '../../database.sqlite'),
-  logging: false
+  storage: process.env.NODE_ENV === 'production' 
+    ? '/tmp/database.sqlite'
+    : join(__dirname, '../../database.sqlite'),
+  logging: false,
+  dialectOptions: {
+    timeout: 30000,
+  },
 });
 
 export default sequelize;

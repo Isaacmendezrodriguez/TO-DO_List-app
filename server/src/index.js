@@ -29,10 +29,22 @@ app.use((err, req, res, next) => {
 });
 
 // Sincronizar la base de datos y iniciar el servidor
-sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-}).catch(err => {
-  console.error('Unable to connect to the database:', err);
-});
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+    
+    await sequelize.sync();
+    console.log('Database synchronized successfully.');
+
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`Server is running on port ${port}`);
+      console.log(`Environment: ${process.env.NODE_ENV}`);
+    });
+  } catch (error) {
+    console.error('Unable to start the server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
