@@ -6,13 +6,27 @@ import sequelize from './config/database.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Configuración CORS más permisiva
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://todo-list-app-isaacmendez.vercel.app', 'https://to-do-list-app-iota.vercel.app', 'https://to-do-list-isaac.netlify.app']
-    : ['http://localhost:5173'],
-  credentials: true
+  origin: ['https://to-do-list-isaac.netlify.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
 app.use(express.json());
+
+// Middleware para headers de seguridad
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://to-do-list-isaac.netlify.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
 
 // Ruta de prueba
 app.get('/', (req, res) => {
