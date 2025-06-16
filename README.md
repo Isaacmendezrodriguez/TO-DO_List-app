@@ -111,7 +111,7 @@ MIT
 
 ## Autor
 
-[Tu Nombre]
+[isaac mendez rodriguez ]
 
 ## Agradecimientos
 
